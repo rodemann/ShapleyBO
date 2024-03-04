@@ -29,29 +29,17 @@ on
 ### Setup
 
 * First and foremost, please install all dependencies.
-* Then download the implementations of BPLS with PPP and concurring PLS methods and save in a folder named "R":
-
-* [Supervised Baseline](R/standard_supervised.R)
-* [Probability Score](R/standard_self_training_conf.R)
-* [Predictive Variance](R/standard_self_training.R)
-* [PPP (Bayes-optimal)](R/diff_marg_likelihood_pred_ext.R)
-* [Likelihood (max-max)](R/diff_marg_likelihood_pred.R)
-* [Utilities for PPP](R/utils_diff_marg_likelihood.R)
+* Then download the implementations of ShapleyBO from folder named "R":
 
 
-In order to reproduce the papers' key results (and visualizations thereof) further download these scripts and save in respective folder:
+In order to reproduce the papers' key results (and visualizations thereof) further download these scripts:
 
-* in folder analysis/
-    * [analysis and visualization](analyze/analyze.R) 
-* in folder benchmarks/
-    * [global setup of experiments](benchmarks/run_benchmarks_simulated_data_p=60.R)
-* in folder benchmarks/experiments/
-    * [experiments with likelihood (max-max)](benchmarks/experiments/benchmark-dml-pred.R)
-    * [experiments with PPP (bayes-opt)](benchmarks/experiments/benchmark-dml-pred-ext.R)
-    * [experiments with supervised baseline](benchmarks/experiments/_benchmark-standard-supervised.R)
-    * [experiments with predictive variance](benchmarks/experiments/_benchmark-standard-self-training.R)
-    * [experiments with probability score](benchmarks/experiments/_benchmark-standard-self-training_conf.R)
+* [global setup of experiments](run-experiments.R)
+* [experiments](source-experiments.R)
+* [automatic visualization](viz-results-auto.R)
+* [custom visualization](viz-results.R)
 
+* 
 
 Eventually, download [benchmarks/experiments_simulated_data.R](benchmarks/experiments_simulated_data.R) and run from benchmarks/ (estimated runtime: 30 CPU hours)
 
