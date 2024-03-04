@@ -5,7 +5,7 @@
 
 
 ### Introduction, TOC
-This repository contains ShapleyBO, a modular framework for xxplaining Bayesian optimization by Shapley Values, as introduced in the paper "Explaining Bayesian Optimization by Shapley Values Facilitates Human-AI Collaboration"
+This repository contains ShapleyBO, a modular framework for explaining Bayesian optimization by Shapley Values, as introduced in the paper "Explaining Bayesian Optimization by Shapley Values Facilitates Human-AI Collaboration"
 
 * [R](R) contains implementation of ShapleyBO
 * [benchmarking](benchmarking) provides files for experiments (section 4), in order to reproduce results, see setup below
