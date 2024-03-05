@@ -35,24 +35,20 @@ In order to reproduce the papers' key results (and visualizations thereof) follo
 
 * First and foremost, clone this repository and install all dependencies
 * Then download the implementations of ShapleyBO from folder named "R"
-* Now run [main-experiments-R](main-experiments-R)
+* Now run [main-experiments-R](main-experiments-R) (defaults to settings reported in paper, estimated runtime: 6 CPU hours
 
-
-* 
-
-Eventually, download [benchmarks/experiments_simulated_data.R](benchmarks/experiments_simulated_data.R) and run from benchmarks/ (estimated runtime: 30 CPU hours)
-
-Important: Create empty folders [results](results) and [plots](plots) where experimental results will be stored automatically. In addition, you can access them as object after completion of the experiments.
+Important: Experimental results will be stored automatically as RDS files in home directory. In addition, you can access them as object after completion of the experiments.
 
 
 ### Further experiments
 
-Additional experimental setups can now easily be created by modifying [benchmarks/experiments_simulated_data.R](benchmarks/experiments_simulated_data.R)
+Additional experimental setups can now easily be created by modifying the setup in [main-experiments-R](main-experiments-R)
 
 
 ### Data
 
-Find data and files to read in data in folder [data](data). 
+Find data and files to read in data in folder [data](data). In order to preserve anonymity, we do not include a reference to the study for which the data was collected. Details and data source will be made available after the double-blind reviewing process. 
+
 
 
 
