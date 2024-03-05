@@ -3,27 +3,7 @@ library(ggplot2)
 library(dplyr)
 library(mlrMBO)
 #load results
-# shapleyBO_results = readRDS("~/julian/uq-in-bo/shapley_res_complete-S15-90-20-80-40-2-2-16:53:55-.rds")
-# baseline_results <- readRDS("~/julian/uq-in-bo/baseline_res_complete-S15-90-20-80-40-2-2-16:53:55-.rds")
-# 
-# shapleyBO_results = readRDS("~/julian/uq-in-bo/shapley_res_complete-S15-80-20-80-40-2-2-13:45:59-.rds")
-# baseline_results <- readRDS("~/julian/uq-in-bo/baseline_res_complete-S15-80-20-80-40-2-2-13:45:59-.rds")
 
-#shapleyBO_results = readRDS("~/julian/uq-in-bo/shapley_res_complete-S14-80-20-80-40-2-2-18:02:33-.rds")
-#baseline_results = readRDS("~/julian/uq-in-bo/baseline_res_complete-S14-80-20-80-40-2-2-18:02:33-.rds")
-
-# shapleyBO_results = readRDS("~/julian/uq-in-bo/shapley_res_complete-S15-90-20-80-40-2-2-15:58:59-.rds")
-# baseline_results = readRDS("~/julian/uq-in-bo/baseline_res_complete-S15-90-20-80-40-2-2-15:58:59-.rds")
-
-#shapleyBO_results <- readRDS("~/julian/uq-in-bo/shapley_res_complete-S15-80-20-80-40-2-2-13:57:26-.rds")
-#baseline_results <- readRDS("~/julian/uq-in-bo/baseline_res_complete-S15-80-20-80-40-2-2-13:57:26-.rds")
-
-
-# shapleyBO_results = shap
-# shapleyBO_results_cb = cb
-# baseline_results = base
-# baseline_mod_results = mod
-# human_results = hum
 
 
 #init_design_size = 3

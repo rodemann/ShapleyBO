@@ -56,37 +56,6 @@ obj_fun = makeSingleObjectiveFunction(name = "exo utility",
 )
 parameter_set = getParamSet(obj_fun)
 
-# sample = generateDesign(n = 1000, par.set = parameter_set, fun = lhs::maximinLHS)
-# 
-# y = apply(sample,1,obj_fun)
-# 
-# plot(sample$x1, y)
-# plot(sample$x2, y)
-# 
-# plot3D(sample$x2, sample$x1, y)
-# matrix = cbind(sample$x2, sample$x1, y)
-# persp(z=matrix)
-# persp(sample$x2, sample$x1, y, col='blue')
-# 
-
-
-# # Create a 2D grid of points
-# grid <- expand.grid(x1 = seq(min(sample$x1), max(sample$x1), length.out = 10),
-#                     x2 = seq(min(sample$x2), max(sample$x2), length.out = 10))
-# 
-# # Evaluate the objective function over the grid
-# y <- matrix(NA, nrow = 10, ncol = 10)
-# for (i in 1:nrow(grid)) {
-#   y[i] <- obj_fun(c(grid$x1[i], grid$x2[i]))
-# }
-# 
-# # Create the contour plot
-# contour(seq(min(sample$x1), max(sample$x1), length.out = 10),
-#         seq(min(sample$x2), max(sample$x2), length.out = 10),
-#         y,
-#         xlab = "x1", ylab = "x2", main = "Contour Plot of Objective Function")
-
-
 ################
 # end of obj-fun 
 ################
@@ -202,47 +171,6 @@ shapley_ratio_agent_cb = mean_shapley_x1 / mean_shapley_x2
 
 # edit
 #shapley_ratio_agent_cb = shapley_ratio_agent
-
-# viz shapleys
-plotShapleyMBO(shapleys, "cb", lambda.mbo = lambda_agent, type = "line")
-
-
-### regression
-
-dat_reg= data.frame("phi_mean_x1" = shapleys$phi_mean_scaled[x1_ind],
-                    "phi_mean_x2" = shapleys$phi_mean_scaled[x2_ind],
-                    #"shapley_ratio" = shapleys$phi_mean_scaled[x1_ind]/shapleys$phi_mean_scaled[x2_ind],
-                    "y" = res_mbo_agent_df$y[(init_design_size_agent+1):(init_design_size_agent+initial_iters_agent)])
-
-lm_fit = lm(y ~ phi_mean_x1 + phi_mean_x2, data = dat_reg)
-lm_fit %>% summary
-
-
-
-tree <- rpart(y ~ phi_mean_x1 + phi_mean_x2, data=dat_reg, control=rpart.control(cp=.0000001))
-#view results
-#printcp(tree)
-#prp(tree)
-
-tree$splits
-
-#identify best cp value to use
-best <- tree$cptable[which.min(tree$cptable[,"xerror"]),"CP"]
-
-#produce a pruned tree based on the best cp value
-pruned_tree <- prune(tree, cp=best)
-pruned_tree
-# #plot the pruned tree
-prp(pruned_tree,
-    faclen=1, #use full names for factor labels
-    extra=1, #display number of obs. for each terminal node
-    roundint=F, #don't round to integers in output
-    digits=4) #display 5 decimal places in output
-
-split_var = pruned_tree$frame$var[1]
-split_crit = pruned_tree$splits[1,4]
-
-
 
 
 #lambda_agent = 5
