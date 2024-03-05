@@ -30,40 +30,6 @@ library(mlrMBO)
 budget_viz = budget + init_design_size +1 # for final fit
 
 
-#####
-# shapley-CB-assisted results
-res_frames = list()
-utilities_frame = list()
-for(i in 1:n_exp){
-  res_frames[[i]] = shapleyBO_results_cb[[i]]$opt.path %>% getOptPathY()
-  #utilities_frame[[i]] = res_frames[[i]]$y
-}  
-# ATTENTION only for minimization (no problem here, since we restrict our tests to it)
-opt_paths <- lapply(res_frames, function(proposals){
-  for (o in 2:length(proposals)) {
-    if(proposals[o] > proposals[o - 1])
-      proposals[o] = proposals[o - 1]
-  }
-  proposals
-})
-
-
-optpaths_all = data.frame(do.call(rbind, opt_paths))
-# 
-# #remove initial design
-#optpaths_all = optpaths_all[,-c(1:init_design_size)]
-# BO_paths_initial <- BO_paths_fun_config %>% slice_head(n = initial_design_size)
-# BO_paths_optim <- BO_paths_fun_config %>% slice_tail(n = nrow(BO_paths_fun_config) - initial_design_size)
-#get lower bound/upper bound/mean per iteration:
-BO_paths_sd_shap <- apply(optpaths_all, 2, sd)
-BO_paths_mop <- apply(optpaths_all, 2, mean)
-
-#mean_utilities_sh = lapply(opt_paths, mean)
-#sd_utilities_sh = lapply(opt_paths, sd)
-data_shap <- data.frame(
-  x = 1:budget_viz,
-  y = - BO_paths_mop
-)
 
 # shapley-assisted results
 res_frames = list()
@@ -94,7 +60,7 @@ BO_paths_mop <- apply(optpaths_all, 2, mean)
 
 #mean_utilities_sh = lapply(opt_paths, mean)
 #sd_utilities_sh = lapply(opt_paths, sd)
-data_shap_cb <- data.frame(
+data_shap <- data.frame(
   x = 1:budget_viz,
   y = - BO_paths_mop
 )
@@ -247,7 +213,6 @@ combined_data <- rbind(data.frame(Agent = "Shapely-assisted", data_shap),
                        data.frame(Agent = "Baseline", data_base),
                        data.frame(Agent = "Baseline-mod", data_mod),
                        data.frame(Agent = "Baseline-human", data_hum),
-                       data.frame(Agent = "Shapely-assisted-cb", data_shap_cb),
                        data.frame(Agent = "Baseline-par", data_par)
                        
 )
@@ -258,7 +223,7 @@ combined_data <- rbind(data.frame(Agent = "Shapely-assisted", data_shap),
 # combined_data$upper <- combined_data$y + 1.96 * sd_vec / sqrt(n_exp)
 
 
-pal = c("steelblue","#DB6D00","red3", "forestgreen", "magenta", "yellow")
+pal = c("steelblue","#DB6D00","red3", "forestgreen", "magenta")
 # Create ggplot with geom_lines and confidence intervals
 plot <- ggplot(combined_data, aes(x, y, color = Agent)) +
   geom_line() +

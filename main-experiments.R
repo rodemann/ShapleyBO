@@ -1,12 +1,5 @@
 # compare agent with shapleys to agent without 
-# both agents have own interal utility model which is simulated by another BO
-# agents have different knowledge than automatic BO
-# agent 1 intervenes each 3rd intervention (or randomly?)
-# agent 2 intervenes only if shapleys fulfill certain conditions
-# e.g., internal shapleys suggest lifting gain to be more relevant than lowering gain
-# i.e., only intervene if shapley ratio diverges from internally learned ratio
-# (similar setup as in human-bo team paper)
-#TODO possible extension: third agent that uses information on proposals but not on shapleys
+# all agents have own interal utility model which is simulated by another BO, see section 5 
 
 library(mlrMBO)
 library(ggplot2)
@@ -35,8 +28,8 @@ source("R/plotShapleyMBO.R")
 set.seed(234523)
 
 
-n_exp = 4 # number of experimental repetition per subject (in paper: 40)
-budget = 10
+n_exp = 3 # number of experimental repetition per subject (in paper: 40)
+budget = 3
 init_design_size_agent = 90
 lambda = 20
 

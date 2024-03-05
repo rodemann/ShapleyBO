@@ -503,8 +503,7 @@ human_res = res_mbo
   # 
   baseline_results[[i]] = baseline_res
   baseline_mod_results[[i]] = baseline_mod_res
-  shapleyBO_results[[i]] = shapley_res
-  shapleyBO_results_cb[[i]] = shapley_res_cb
+  shapleyBO_results[[i]] = shapley_res_cb
   human_results[[i]] = human_res
   baseline_par_results[[i]] = baseline_par_res
   
@@ -513,8 +512,7 @@ human_res = res_mbo
   
   human_opts[[i]] = human_res$y
   baseline_opts[[i]] = baseline_res$y
-  shapley_opts[[i]] = shapley_res$y
-  shapley_opts_cb[[i]] = shapley_res_cb$y
+  shapley_opts[[i]] = shapley_res_cb$y
   baseline_mod_opts[[i]] = baseline_mod_res$y
   baseline_par_opts[[i]] = baseline_par_res$y
   print(i)
@@ -532,47 +530,47 @@ print(time)
 time = substring(time, 12,19)
 # saveRDS(baseline_opts,file =paste("baseline_res",
 #                                   data_name,budget,init_design_size,init_design_size_agent,
-#                                   initial_iters_agent,lambda, lambda_agent,time,".rds",
+#                                   initial_iters_agent,lambda, lambda_agent,".rds",
 #                                   sep = "-"))
 # saveRDS(baseline_mod_opts,file =paste("baseline_mod_res",
 #                                       data_name,budget,init_design_size,init_design_size_agent,
-#                                       initial_iters_agent,lambda, lambda_agent,time,".rds",
+#                                       initial_iters_agent,lambda, lambda_agent,".rds",
 #                                       sep = "-"))
 # saveRDS(shapley_opts,file =paste("shapley_res",
 #                                  data_name,budget,init_design_size,init_design_size_agent,
-#                                  initial_iters_agent,lambda, lambda_agent,time,".rds",
+#                                  initial_iters_agent,lambda, lambda_agent,".rds",
 #                                  sep = "-"))
-saveRDS(number_interventions_tot,file =paste("n_interventions_res",
+# saveRDS(number_interventions_tot,file =paste("n_interventions_res",
+#                                              data_name,budget,init_design_size,init_design_size_agent,
+#                                              initial_iters_agent,lambda, lambda_agent,".rds",
+#                                              sep = "-"))
+saveRDS(number_interventions_tot_cb,file =paste("n_interventions_res",
                                              data_name,budget,init_design_size,init_design_size_agent,
-                                             initial_iters_agent,lambda, lambda_agent,time,".rds",
-                                             sep = "-"))
-saveRDS(number_interventions_tot_cb,file =paste("n_interventions_res_cb",
-                                             data_name,budget,init_design_size,init_design_size_agent,
-                                             initial_iters_agent,lambda, lambda_agent,time,".rds",
+                                             initial_iters_agent,lambda, lambda_agent,".rds",
                                              sep = "-"))
 saveRDS(baseline_mod_results,file =paste("baseline_mod_res_complete",
                                          data_name,budget,init_design_size,init_design_size_agent,
-                                         initial_iters_agent,lambda, lambda_agent,time,".rds",
+                                         initial_iters_agent,lambda, lambda_agent,".rds",
                                          sep = "-"))
 saveRDS(baseline_results,file =paste("baseline_res_complete",
                                      data_name,budget,init_design_size,init_design_size_agent,
-                                     initial_iters_agent,lambda, lambda_agent,time,".rds",
+                                     initial_iters_agent,lambda, lambda_agent,".rds",
                                      sep = "-"))
+# saveRDS(shapleyBO_results,file =paste("shapley_res_complete",
+#                                       data_name,budget,init_design_size,init_design_size_agent,
+#                                       initial_iters_agent,lambda, lambda_agent,".rds",
+#                                       sep = "-"))
 saveRDS(shapleyBO_results,file =paste("shapley_res_complete",
                                       data_name,budget,init_design_size,init_design_size_agent,
-                                      initial_iters_agent,lambda, lambda_agent,time,".rds",
-                                      sep = "-"))
-saveRDS(shapleyBO_results_cb,file =paste("shapley_res_complete_cb",
-                                      data_name,budget,init_design_size,init_design_size_agent,
-                                      initial_iters_agent,lambda, lambda_agent,time,".rds",
+                                      initial_iters_agent,lambda, lambda_agent,".rds",
                                       sep = "-"))
 saveRDS(human_results,file =paste("human_res_complete",
                                       data_name,budget,init_design_size,init_design_size_agent,
-                                      initial_iters_agent,lambda, lambda_agent,time,".rds",
+                                      initial_iters_agent,lambda, lambda_agent,".rds",
                                       sep = "-"))
 saveRDS(baseline_par_results,file =paste("baseline_par_res_complete",
                                   data_name,budget,init_design_size,init_design_size_agent,
-                                  initial_iters_agent,lambda, lambda_agent,time,".rds",
+                                  initial_iters_agent,lambda, lambda_agent,".rds",
                                   sep = "-"))
 
 source("viz-results-auto.R")
