@@ -12,8 +12,8 @@ library(mlrMBO)
 #shapleyBO_results = readRDS("~/julian/uq-in-bo/shapley_res_complete-S14-80-20-80-40-2-2-18:02:33-.rds")
 #baseline_results = readRDS("~/julian/uq-in-bo/baseline_res_complete-S14-80-20-80-40-2-2-18:02:33-.rds")
 
- # shapleyBO_results = readRDS("~/julian/uq-in-bo/shapley_res_complete-S15-90-20-80-40-2-2-15:58:59-.rds")
- # baseline_results = readRDS("~/julian/uq-in-bo/baseline_res_complete-S15-90-20-80-40-2-2-15:58:59-.rds")
+# shapleyBO_results = readRDS("~/julian/uq-in-bo/shapley_res_complete-S15-90-20-80-40-2-2-15:58:59-.rds")
+# baseline_results = readRDS("~/julian/uq-in-bo/baseline_res_complete-S15-90-20-80-40-2-2-15:58:59-.rds")
 
 #shapleyBO_results <- readRDS("~/julian/uq-in-bo/shapley_res_complete-S15-80-20-80-40-2-2-13:57:26-.rds")
 #baseline_results <- readRDS("~/julian/uq-in-bo/baseline_res_complete-S15-80-20-80-40-2-2-13:57:26-.rds")
@@ -29,7 +29,7 @@ baseline_par_results = par
 n_exp = 40
 
 init_design_size = 3
-budget = 15 + init_design_size +1 # for final fit
+budget = 10 + init_design_size +1 # for final fit
 
 
 #####
@@ -66,7 +66,8 @@ data_shap_cb <- data.frame(
   x = 1:budget,
   y = - BO_paths_mop
 )
-
+data_shap_cb = data_shap_cb[1:budget-1,]
+BO_paths_sd_shap_cb = BO_paths_sd_shap_cb[1:budget-1]
 # # shapley-assisted results
 # res_frames = list()
 # utilities_frame = list()
@@ -137,7 +138,8 @@ data_base <- data.frame(
   x = 1:budget,
   y = - BO_paths_mop
 )
-
+data_base = data_base[1:budget-1,]
+BO_paths_sd_base = BO_paths_sd_base[1:budget-1]
 
 ########
 # human baseline results
@@ -172,6 +174,8 @@ data_hum <- data.frame(
   x = 1:budget,
   y = - BO_paths_mop
 )
+data_hum = data_hum[1:budget-1,]
+BO_paths_sd_hum = BO_paths_sd_hum[1:budget-1]
 
 
 ##########
@@ -207,7 +211,8 @@ data_mod <- data.frame(
   x = 1:budget,
   y = - BO_paths_mop
 )
-
+data_mod = data_mod[1:budget-1,]
+BO_paths_sd_mod = BO_paths_sd_mod[1:budget-1]
 
 ##########
 # baseline par results 
@@ -236,7 +241,7 @@ optpaths_all = data.frame(do.call(rbind, opt_paths))
 BO_paths_sd_par <- apply(optpaths_all, 2, sd)
 BO_paths_mop <- apply(optpaths_all, 2, mean)
 
-BO_paths_sd_par = BO_paths_sd_par[1:budget]
+
 BO_paths_mop = BO_paths_mop[1:budget]
 
 #mean_utilities_sh = lapply(opt_paths, mean)
@@ -246,18 +251,18 @@ data_par <- data.frame(
   y = - BO_paths_mop
 )
 
-#data_par = data_par[1:]
-
+data_par = data_par[1:budget-1,]
+BO_paths_sd_par = BO_paths_sd_par[1:budget-1]
 
 
 # Combine the datasets into one dataframe
 combined_data <- rbind(#data.frame(Agent = "Shapely-assisted-tree", data_shap),
-                       data.frame(Agent = "A0: BO", data_base),
-                       data.frame(Agent = "A3: Venkatesh et al.", data_mod),
-                       data.frame(Agent = "A1: Human", data_hum),
-                       data.frame(Agent = "A4: Shap-Team", data_shap_cb),
-                       data.frame(Agent = "A2: Param-Team", data_par)
-                       
+  data.frame(Agent = "A0: BO", data_base),
+  data.frame(Agent = "A3: Venkatesh et al.", data_mod),
+  data.frame(Agent = "A1: Human", data_hum),
+  data.frame(Agent = "A4: Shap-Team", data_shap_cb),
+  data.frame(Agent = "A2: Param-Team", data_par)
+  
 )
 
 sd_vec = c(BO_paths_sd_base, BO_paths_sd_hum, BO_paths_sd_mod, BO_paths_sd_shap_cb, BO_paths_sd_par)
@@ -283,7 +288,7 @@ plot <- ggplot(combined_data, aes(x, y, color = Agent)) +
   theme(axis.title.y = element_text(size = 18, vjust= 1.9)) + #, margin = margin(t = 20, r = 20, b = 0, l = 0))) +
   scale_color_manual(values=pal) +
   scale_fill_manual(values=pal)
-  
+
 print(plot)
 # Assuming 'combined_data' has columns: x, y, Agent, ymin, ymax
 # and 'pal' is defined for color and fill aesthetics
@@ -300,16 +305,18 @@ plot <- ggplot(combined_data, aes(x, y, color = Agent)) +
         legend.box.spacing = unit(0.5, 'cm'), 
         legend.text = element_text(size = 16),
         legend.title = element_text(size = 21)) +
-  theme(axis.text = element_text(size = 13), axis.title = element_text(size = 18), plot.title = element_text(size = 20, face = "bold")) +
-  theme(axis.title.y = element_text(size = 18, vjust = 1.9)) +
+  theme(axis.text = element_text(size = 13), axis.title = element_text(size = 18), 
+        plot.title = element_text(size = 20, face = "bold")) +
+  theme(axis.title.y = element_text(size = 18, vjust = 2.9)) +
+  theme(axis.title.x = element_text(size = 18, vjust = -0.9)) +
   scale_color_manual(values = pal) +
   scale_fill_manual(values = pal)
 
 
-  print(plot)
+print(plot)
 
-  
-  
-  
-  
-  
+
+
+
+
+
