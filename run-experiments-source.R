@@ -296,70 +296,70 @@ human_res = res_mbo
   #res_mbo$y
   baseline_par_res = res_mbo
   
-  
-  design = designs_list[[i]]
-  # this script runs the BO for an agent who has access to shapleyBO
-  # SHAPLEYBO
-  number_interventions = 0
-  ## BO loop
-  for (b in 1:budget) {
-    #browser()
-    ctrl = setMBOControlTermination(ctrl, iters = 1)
-    ctrl_agent = makeMBOControl(propose.points = 1L, store.model.at = 1:2)
-    # auto BO:
-    res_mbo = mbo(fun = obj_fun, design = design, control = ctrl, learner = lrn, show.info = F)
-    mbo_design = res_mbo$opt.path %>% as.data.frame()
-    shapleys = ShapleyMBO(res.mbo = res_mbo, iter.interest = 1, contribution = TRUE)
-    # regularity conditions:
-    if(shapleys$phi_mean_scaled[1] == 0 & shapleys$phi_mean_scaled[2] == 0){
-      shapley_ratio_bo = 1
-    }else{
-      shapley_ratio_bo = shapleys$phi_mean_scaled[1] / shapleys$phi_mean_scaled[2]
-    }
-    if(is.nan(shapley_ratio_agent)==TRUE)
-      shapley_ratio_agent = 1
-    
-    # human bo interface: does the proposal align with agent's knowledge?
-    # if(shapley_ratio_agent/shapley_ratio_bo > 2 |
-    #    shapley_ratio_agent/shapley_ratio_bo < 0.5 ){
-    if(split_var == "phi_mean_x1"){
-      crit_var = shapleys$phi_mean_scaled[1]
-    }else{
-      crit_var = shapleys$phi_mean_scaled[2]
-    }
-    if(is.null(split_crit) == TRUE){
-      split_crit = -3
-    }
-    if(crit_var >  split_crit){
-      number_interventions = number_interventions +1
-      ctrl_agent = setMBOControlTermination(ctrl_agent, iters = 1)
-      # agent BO:
-      #design_agent_in_loop = rbind(design_agent, design)
-      design_agent_in_loop = design_agent
-      res_mbo_agent = mbo(fun = obj_fun, design = design_agent_in_loop, control = ctrl_agent, learner = lrn_agent, show.info = F)
-      mbo_design_agent = res_mbo_agent$opt.path %>% as.data.frame()
-      proposal_agent = mbo_design_agent[nrow(mbo_design_agent),1:2]
-      design = rbind(design, proposal_agent)
-      # update shapleys:
-      design_update_sh = rbind(design, design_agent)
-      res_mbo_agent_sh = mbo(fun = obj_fun, design = design_update_sh, control = ctrl_agent, learner = lrn_agent, show.info = F)
-      shapleys_update = ShapleyMBO(res.mbo = res_mbo_agent_sh, iter.interest = NULL, contribution = TRUE)
-      x1_ind = subset(1:nrow(shapleys_update), 1:nrow(shapleys_update) %% 2 == 1)
-      x2_ind = subset(1:nrow(shapleys_update), 1:nrow(shapleys_update) %% 2 == 0)
-      mean_shapley_x1 = shapleys_update$phi_mean_scaled[x1_ind] %>% mean
-      mean_shapley_x2 = shapleys_update$phi_mean_scaled[x2_ind] %>% mean
-      shapley_ratio_agent = mean_shapley_x1 / mean_shapley_x2
-      
-    }else{
-      design = mbo_design[,1:2]
-    }
-  }
-  # final fit
-  ctrl = setMBOControlTermination(ctrl, iters = 1)
-  res_mbo = mbo(fun = obj_fun, design = design, control = ctrl, learner = lrn, show.info = F)
-  shapley_res = res_mbo
-  
-  
+  # OUTDATED (uses tree-based crit, see supplement)
+  # design = designs_list[[i]]
+  # # this script runs the BO for an agent who has access to shapleyBO
+  # # SHAPLEYBO
+  # number_interventions = 0
+  # ## BO loop
+  # for (b in 1:budget) {
+  #   #browser()
+  #   ctrl = setMBOControlTermination(ctrl, iters = 1)
+  #   ctrl_agent = makeMBOControl(propose.points = 1L, store.model.at = 1:2)
+  #   # auto BO:
+  #   res_mbo = mbo(fun = obj_fun, design = design, control = ctrl, learner = lrn, show.info = F)
+  #   mbo_design = res_mbo$opt.path %>% as.data.frame()
+  #   shapleys = ShapleyMBO(res.mbo = res_mbo, iter.interest = 1, contribution = TRUE)
+  #   # regularity conditions:
+  #   if(shapleys$phi_mean_scaled[1] == 0 & shapleys$phi_mean_scaled[2] == 0){
+  #     shapley_ratio_bo = 1
+  #   }else{
+  #     shapley_ratio_bo = shapleys$phi_mean_scaled[1] / shapleys$phi_mean_scaled[2]
+  #   }
+  #   if(is.nan(shapley_ratio_agent)==TRUE)
+  #     shapley_ratio_agent = 1
+  #   
+  #   # human bo interface: does the proposal align with agent's knowledge?
+  #   # if(shapley_ratio_agent/shapley_ratio_bo > 2 |
+  #   #    shapley_ratio_agent/shapley_ratio_bo < 0.5 ){
+  #   if(split_var == "phi_mean_x1"){
+  #     crit_var = shapleys$phi_mean_scaled[1]
+  #   }else{
+  #     crit_var = shapleys$phi_mean_scaled[2]
+  #   }
+  #   if(is.null(split_crit) == TRUE){
+  #     split_crit = -3
+  #   }
+  #   if(crit_var >  split_crit){
+  #     number_interventions = number_interventions +1
+  #     ctrl_agent = setMBOControlTermination(ctrl_agent, iters = 1)
+  #     # agent BO:
+  #     #design_agent_in_loop = rbind(design_agent, design)
+  #     design_agent_in_loop = design_agent
+  #     res_mbo_agent = mbo(fun = obj_fun, design = design_agent_in_loop, control = ctrl_agent, learner = lrn_agent, show.info = F)
+  #     mbo_design_agent = res_mbo_agent$opt.path %>% as.data.frame()
+  #     proposal_agent = mbo_design_agent[nrow(mbo_design_agent),1:2]
+  #     design = rbind(design, proposal_agent)
+  #     # update shapleys:
+  #     design_update_sh = rbind(design, design_agent)
+  #     res_mbo_agent_sh = mbo(fun = obj_fun, design = design_update_sh, control = ctrl_agent, learner = lrn_agent, show.info = F)
+  #     shapleys_update = ShapleyMBO(res.mbo = res_mbo_agent_sh, iter.interest = NULL, contribution = TRUE)
+  #     x1_ind = subset(1:nrow(shapleys_update), 1:nrow(shapleys_update) %% 2 == 1)
+  #     x2_ind = subset(1:nrow(shapleys_update), 1:nrow(shapleys_update) %% 2 == 0)
+  #     mean_shapley_x1 = shapleys_update$phi_mean_scaled[x1_ind] %>% mean
+  #     mean_shapley_x2 = shapleys_update$phi_mean_scaled[x2_ind] %>% mean
+  #     shapley_ratio_agent = mean_shapley_x1 / mean_shapley_x2
+  #     
+  #   }else{
+  #     design = mbo_design[,1:2]
+  #   }
+  # }
+  # # final fit
+  # ctrl = setMBOControlTermination(ctrl, iters = 1)
+  # res_mbo = mbo(fun = obj_fun, design = design, control = ctrl, learner = lrn, show.info = F)
+  # shapley_res = res_mbo
+  # 
+  # 
   
   design = designs_list[[i]]
   # this script runs the BO for an agent who has access to shapleyBO with cb shapley values

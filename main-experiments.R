@@ -28,8 +28,8 @@ source("R/plotShapleyMBO.R")
 set.seed(234523)
 
 
-n_exp = 3 # number of experimental repetition per subject (in paper: 40)
-budget = 3
+n_exp = 40 # number of experimental repetition per subject (in paper: 40)
+budget = 10
 init_design_size_agent = 90
 lambda = 20
 
