@@ -10,7 +10,10 @@ This repository contains ShapleyBO, a modular framework for explaining Bayesian 
 * [R](R) contains implementation of ShapleyBO
 * [main-experiments-R](main-experiments-R) provides code to run experiments (section 5) with adjustable settings
 * [data](data) contains exosuit personalization data used in experiments
-* experimental results and visualization thereof will be saved in [plots](plots) and [results](results) 
+* visualization of results via
+    - [automatic visualization](viz-results-auto.R)
+    - [custom visualization](viz-results.R)
+    
 
 
 ### Tested with
@@ -32,10 +35,8 @@ In order to reproduce the papers' key results (and visualizations thereof) follo
 
 * First and foremost, clone this repository and install all dependencies
 * Then download the implementations of ShapleyBO from folder named "R"
-* [global setup of experiments](run-experiments.R)
-* [experiments](source-experiments.R)
-* [automatic visualization](viz-results-auto.R)
-* [custom visualization](viz-results.R)
+* Now run [main-experiments-R](main-experiments-R)
+
 
 * 
 
