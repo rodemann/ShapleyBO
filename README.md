@@ -8,8 +8,8 @@
 This repository contains ShapleyBO, a modular framework for explaining Bayesian optimization by Shapley Values, as introduced in the paper "Explaining Bayesian Optimization by Shapley Values Facilitates Human-AI Collaboration"
 
 * [R](R) contains implementation of ShapleyBO
-* [benchmarking](benchmarking) provides files for experiments (section 4), in order to reproduce results, see setup below
-* [data](data) contains real-world data used in experiments
+* [main-experiments-R](main-experiments-R) provides code to run experiments (section 5) with adjustable settings
+* [data](data) contains exosuit personalization data used in experiments
 * experimental results and visualization thereof will be saved in [plots](plots) and [results](results) 
 
 
@@ -28,12 +28,10 @@ on
 
 ### Setup
 
-* First and foremost, please install all dependencies.
-* Then download the implementations of ShapleyBO from folder named "R":
+In order to reproduce the papers' key results (and visualizations thereof) follow these steps:
 
-
-In order to reproduce the papers' key results (and visualizations thereof) further download these scripts:
-
+* First and foremost, clone this repository and install all dependencies
+* Then download the implementations of ShapleyBO from folder named "R"
 * [global setup of experiments](run-experiments.R)
 * [experiments](source-experiments.R)
 * [automatic visualization](viz-results-auto.R)
