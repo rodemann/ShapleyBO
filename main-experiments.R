@@ -29,17 +29,14 @@ source("R/makeMBOInfillCritRACB.R")
 source("R/initCrit.InfillCritRACB.R")
 source("R/ShapleyMBO.R")
 source("R/plotShapleyMBO.R")
-#source("R/_Explore_Exploit_Measures/xplxpl-jr.R")
 
 
 
 set.seed(234523)
 
 
-n_exp = 4 # number of experimental repetition per subject
-
+n_exp = 4 # number of experimental repetition per subject (in paper: 40)
 budget = 10
-
 init_design_size_agent = 90
 lambda = 20
 
