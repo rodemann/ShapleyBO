@@ -34,6 +34,8 @@ on
 In order to reproduce the papers' key results (and visualizations thereof) follow these steps:
 
 * First and foremost, clone this repository and install all dependencies
+      - Note that anonymous.4open.science only allows for individual file downloads, which can be quite tedious 
+      - To circumvent manual cloning, please use the zip-folder of this repo that we attached to our submission     
 * Then download the implementations of ShapleyBO from folder named "R"
 * Now run [main-experiments-R](main-experiments-R) (defaults to settings reported in paper, estimated runtime: 6 CPU hours
 
