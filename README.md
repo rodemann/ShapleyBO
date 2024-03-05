@@ -39,6 +39,11 @@ In order to reproduce the papers' key results (and visualizations thereof) follo
 
 Important: Experimental results will be stored automatically as RDS files in home directory. In addition, you can access them as object after completion of the experiments.
 
+### Visualization
+
+Running experiments triggers [automatic visualization](viz-results-auto.R) of results. For customized visualization, please
+* read in the saved RDS files and name them according to [viz-results.R](viz-results.R)
+* then run [viz-results.R](viz-results.R) with customzed settings
 
 ### Further experiments
 
