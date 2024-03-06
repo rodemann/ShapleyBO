@@ -105,7 +105,6 @@ shapley_opts = list()
 shapley_opts_cb = list()
 human_opts = list()
 
-number_interventions_tot = list()
 number_interventions_tot_cb = list()
 
 param_set_biased = makeParamSet(
@@ -435,7 +434,6 @@ human_res = res_mbo
   human_results[[i]] = human_res
   baseline_par_results[[i]] = baseline_par_res
   
-  number_interventions_tot[[i]] = number_interventions
   number_interventions_tot_cb[[i]] = number_interventions_cb
   
   human_opts[[i]] = human_res$y
