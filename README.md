@@ -1,6 +1,6 @@
 # ShapleyBO
 
-## Explaining Bayesian Optimization by Shapley Values Facilitates Human-AI Collaboration
+## Explaining Bayesian Optimization by Shapley Values Facilitates Human-AI Collaboration For Exosuit Personalization
 
 
 
